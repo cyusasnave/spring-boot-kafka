@@ -1,5 +1,6 @@
 package com.cyusasnave.learningkafka.order;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,7 +17,7 @@ public class OrderListener {
     )
     public void consumeOrder(@Payload Map<String, Object> payload, Acknowledgment acknowledgment) {
         Order sentOrder = buildOrderFromPayload(payload);
-        System.out.println("Received Order: " + sentOrder);
+        System.out.println(MessageFormat.format("Received Order: {0}", sentOrder));
         acknowledgment.acknowledge();
     }
 
