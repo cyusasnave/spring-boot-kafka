@@ -9,7 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderListener {
-    @KafkaListener(topics = "order.created", groupId = "learning-kafka", containerFactory = "concurrentKafkaListenerContainerFactory")
+    @KafkaListener(
+            topics = "order.created",
+            groupId = "learning-kafka",
+            containerFactory = "concurrentKafkaListenerContainerFactory"
+    )
     public void consumeOrder(@Payload Map<String, Object> payload, Acknowledgment acknowledgment) {
         Order sentOrder = buildOrderFromPayload(payload);
         System.out.println("Received Order: " + sentOrder);
@@ -18,9 +22,9 @@ public class OrderListener {
 
     private Order buildOrderFromPayload(final Map<String, Object> payload) {
         return Order.builder()
-                .orderId(payload.get("orderId").toString())
-                .userId(payload.get("userId").toString())
-                .amount(Double.parseDouble(payload.get("amount").toString()))
-                .build();
+                    .orderId(payload.get("orderId").toString())
+                    .userId(payload.get("userId").toString())
+                    .amount(Double.parseDouble(payload.get("amount").toString()))
+                    .build();
     }
 }
