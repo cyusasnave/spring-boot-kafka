@@ -12,7 +12,6 @@ public class OrderListener {
     @KafkaListener(topics = "order.created", groupId = "learning-kafka", containerFactory = "concurrentKafkaListenerContainerFactory")
     public void consumeOrder(@Payload Map<String, Object> payload, Acknowledgment acknowledgment) {
         Order sentOrder = buildOrderFromPayload(payload);
-        System.out.println(sentOrder.getAmount() + " ++++++++++++++++++++++");
         System.out.println("Received Order: " + sentOrder);
         acknowledgment.acknowledge();
     }
